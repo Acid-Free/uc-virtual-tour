@@ -14,13 +14,27 @@ public class CameraController : MonoBehaviour
         {
             // rotate camera based on mouse actions
             // TODO: refactor
-            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x + Input.GetAxis("Mouse Y") * Time.deltaTime * rotateSpeed, transform.localEulerAngles.y + Input.GetAxis("Mouse X") * Time.deltaTime * -rotateSpeed, 0);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x + Input.GetAxis("Mouse Y") * Time.deltaTime * rotateSpeed, transform.eulerAngles.y + Input.GetAxis("Mouse X") * Time.deltaTime * -rotateSpeed, 0);
         }
         if (Input.GetMouseButton(1) || Input.GetMouseButton(2))
         {
             // move camera forward/backward
-            fieldOfView = Mathf.Clamp(fieldOfView + Input.GetAxis("Mouse Y") * Time.deltaTime * -zoomSpeed, 40.0f, 80.0f);
+            fieldOfView = Mathf.Clamp(fieldOfView + Input.GetAxis("Mouse Y") * Time.deltaTime * zoomSpeed, 40.0f, 90.0f);
             Camera.main.fieldOfView = fieldOfView;
         }
+    }
+
+    public void ResetCamera()
+    {
+        transform.rotation = Quaternion.identity;
+        fieldOfView = 60.0f;
+    }
+
+    public void ResetCamera(Vector3 lookRotation, float fieldOfView)
+    {
+        transform.eulerAngles = lookRotation;
+        // TODO: refactor
+        this.fieldOfView = fieldOfView;
+        Camera.main.fieldOfView = fieldOfView;
     }
 }
