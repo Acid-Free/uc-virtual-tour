@@ -24,7 +24,7 @@ public class CameraController : MonoBehaviour
         if (Input.GetMouseButton(1) || Input.GetMouseButton(2))
         {
             // move camera forward / backward
-            zoomAmount = Mathf.Clamp(zoomAmount + Input.GetAxis("Mouse Y") * Time.deltaTime * zoomSpeed, -5.0f, 5.0f);
+            zoomAmount = Mathf.Clamp(zoomAmount + Input.GetAxis("Mouse Y") * Time.deltaTime * -zoomSpeed, -5.0f, 5.0f);
             Camera.main.transform.localPosition = new Vector3(0, 0, zoomAmount);
         }
     }
