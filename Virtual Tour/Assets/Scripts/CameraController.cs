@@ -8,12 +8,11 @@ public class CameraController : MonoBehaviour
     [SerializeField] float zoomSpeed = 600.0f;
     [SerializeField] float minFieldOfView = 40.0f;
     [SerializeField] float maxFieldOfView = 110.0f;
-    [SerializeField] float defaultFieldOfView = 60.0f;
-    float fieldOfView = 60.0f;
+    float fieldOfView;
 
-    void Start()
+    void Awake()
     {
-        fieldOfView = defaultFieldOfView;
+        ResetCamera();
     }
 
     void Update()
