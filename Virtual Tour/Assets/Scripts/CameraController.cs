@@ -36,6 +36,7 @@ public class CameraController : MonoBehaviour
     {
         transform.rotation = Quaternion.identity;
         fieldOfView = defaulFieldOfView;
+        UpdateCameraFOV();
     }
 
     public void ResetCamera(Vector3 lookRotation, float fieldOfView)
@@ -43,6 +44,11 @@ public class CameraController : MonoBehaviour
         transform.eulerAngles = lookRotation;
         // TODO: refactor
         this.fieldOfView = fieldOfView;
+        UpdateCameraFOV();
+    }
+
+    void UpdateCameraFOV()
+    {
         Camera.main.fieldOfView = fieldOfView;
     }
 }

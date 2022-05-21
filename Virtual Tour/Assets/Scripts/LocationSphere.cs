@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LocationSphere : MonoBehaviour
 {
+    // TODO: Link defaultFOV from CameraController to this
     public Vector3 lookRotation = Vector3.zero;
-    public float fieldOfView = 60.0f;
+    public float fieldOfView = 90.0f;
 }
