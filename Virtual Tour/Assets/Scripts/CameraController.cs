@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] float zoomSpeed = 600.0f;
     [SerializeField] float minFieldOfView = 40.0f;
     [SerializeField] float maxFieldOfView = 110.0f;
+    [SerializeField] float defaulFieldOfView = 90.0f;
     float fieldOfView;
 
     void Awake()
@@ -34,7 +35,7 @@ public class CameraController : MonoBehaviour
     public void ResetCamera()
     {
         transform.rotation = Quaternion.identity;
-        fieldOfView = 60.0f;
+        fieldOfView = defaulFieldOfView;
     }
 
     public void ResetCamera(Vector3 lookRotation, float fieldOfView)
