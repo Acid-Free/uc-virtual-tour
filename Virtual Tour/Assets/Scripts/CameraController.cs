@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
         {
             // move camera forward/backward
             fieldOfView = Mathf.Clamp(fieldOfView + Input.GetAxis("Mouse Y") * Time.deltaTime * zoomSpeed, minFieldOfView, maxFieldOfView);
-            Camera.main.fieldOfView = fieldOfView;
+            UpdateCameraFOV();
         }
     }
 
