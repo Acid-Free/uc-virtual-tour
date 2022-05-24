@@ -121,10 +121,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7266248306275253493}
     m_Modifications:
-    - target: {fileID: 7511449382921491433, guid: be836fee27d068841a11375214db63d4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7511449383470245706, guid: be836fee27d068841a11375214db63d4, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -172,10 +168,6 @@ PrefabInstance:
     - target: {fileID: 7511449383470245717, guid: be836fee27d068841a11375214db63d4, type: 3}
       propertyPath: m_Name
       value: DynamicMoveButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 7511449383947465089, guid: be836fee27d068841a11375214db63d4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.38
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be836fee27d068841a11375214db63d4, type: 3}
