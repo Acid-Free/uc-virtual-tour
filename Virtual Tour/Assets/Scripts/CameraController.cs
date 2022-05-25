@@ -11,6 +11,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] float defaulFieldOfView = 90.0f;
     float fieldOfView;
 
+    bool isDragging;
+
     void Awake()
     {
         ResetCamera();
@@ -23,17 +25,30 @@ public class CameraController : MonoBehaviour
 
     void HandleMouseInput()
     {
-        if (Input.GetMouseButton(0) && !IsPointerOverUIObject())
+        if (Input.GetMouseButtonDown(0) && !IsPointerOverUIObject())
+        {
+            isDragging = true;
+            Debug.Log("dragging was just enabled");
+        }
+
+        if (Input.GetMouseButton(0) && isDragging)
         {
             // rotate camera based on mouse actions
             // TODO: refactor
             transform.eulerAngles = new Vector3(transform.eulerAngles.x + Input.GetAxis("Mouse Y") * Time.deltaTime * rotateSpeed, transform.eulerAngles.y + Input.GetAxis("Mouse X") * Time.deltaTime * -rotateSpeed, 0);
         }
+
         if (Input.GetMouseButton(1) || Input.GetMouseButton(2) && !IsPointerOverUIObject())
         {
             // move camera forward/backward
             fieldOfView = Mathf.Clamp(fieldOfView + Input.GetAxis("Mouse Y") * Time.deltaTime * zoomSpeed, minFieldOfView, maxFieldOfView);
             UpdateCameraFOV();
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            isDragging = false;
+            Debug.Log("dragging was just released");
         }
     }
 
