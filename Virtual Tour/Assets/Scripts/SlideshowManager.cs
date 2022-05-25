@@ -7,7 +7,6 @@ public class SlideshowManager : MonoBehaviour
 {
     [SerializeField] Image slideshowImage;
     [SerializeField] Button slideshowButton;
-    [SerializeField] GameObject slideshowPanel;
 
     Sprite[] slideshowImages;
     int currentImageIndex = 0;
@@ -56,16 +55,6 @@ public class SlideshowManager : MonoBehaviour
                 currentImageIndex = slideshowImages.Length - 1;
             }
             UpdateSlideshowImage();
-    }
-
-    public void ShowSlideshowPanel()
-    {
-        slideshowPanel.SetActive(true);
-    }
-
-    public void HideSlideshowPanel()
-    {
-        slideshowPanel.SetActive(false);
     }
 
     // transitions to the next selected slideshow image
