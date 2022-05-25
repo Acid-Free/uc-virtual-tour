@@ -27,6 +27,8 @@ public class DescriptionManager : MonoBehaviour
         }
         else
         {
+            // disables the description panel when moving to a location sphere without a description
+            UIManager.Instance.DisableDescriptionPanel();
             descriptionButton.gameObject.SetActive(false);
         }
     }

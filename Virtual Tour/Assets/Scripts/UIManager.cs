@@ -77,6 +77,11 @@ public class UIManager : MonoBehaviour
         descriptionPanel.SetActive(!currentState);
     }
 
+    public void DisableDescriptionPanel()
+    {
+        descriptionPanel.SetActive(false);
+    }
+
     public void InitializeDescriptionData(String locationName, String locationDescription)
     {
         locationNameText.SetText(locationName);
