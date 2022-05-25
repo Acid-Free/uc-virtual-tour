@@ -9,6 +9,8 @@ public class AudioManager : MonoBehaviour
     AudioSource source;
     AudioClip clip;
 
+    public bool isAudioMuted;
+
     void Awake()
     {
         if (Instance != null)
@@ -33,5 +35,11 @@ public class AudioManager : MonoBehaviour
             clip = currentLocationSphere.GetComponent<LocationSphereData>().audioNarration;
             source.PlayOneShot(clip);
         }
+    }
+
+    public void ToggleMute()
+    {
+        isAudioMuted = !isAudioMuted;
+        source.mute = isAudioMuted;
     }
 }
