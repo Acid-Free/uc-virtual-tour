@@ -20,6 +20,8 @@ public class SlideshowManager : MonoBehaviour
 
     void UpdateSlideshowSystem(GameObject currentLocationSphere)
     {
+        currentImageIndex = 0;
+
         // gets the slideshow images from locationSphereData
         slideshowImages = currentLocationSphere.GetComponent<LocationSphereData>().slideshowImages;
 
