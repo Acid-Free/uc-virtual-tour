@@ -9,9 +9,11 @@ public class CameraController : MonoBehaviour
     [SerializeField] float minFieldOfView = 40.0f;
     [SerializeField] float maxFieldOfView = 110.0f;
     [SerializeField] float defaulFieldOfView = 90.0f;
+    [SerializeField] float turningRate;
     float fieldOfView;
 
     bool isDragging;
+    Quaternion targetRotation = Quaternion.identity;
 
     void Awake()
     {
@@ -21,6 +23,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         HandleMouseInput();
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turningRate * Time.deltaTime);
     }
 
     void HandleMouseInput()
@@ -28,14 +31,15 @@ public class CameraController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !IsPointerOverUIObject())
         {
             isDragging = true;
-            Debug.Log("dragging was just enabled");
         }
 
         if (Input.GetMouseButton(0) && isDragging)
         {
             // rotate camera based on mouse actions
             // TODO: refactor
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x + Input.GetAxis("Mouse Y") * Time.deltaTime * rotateSpeed, transform.eulerAngles.y + Input.GetAxis("Mouse X") * Time.deltaTime * -rotateSpeed, 0);
+            targetRotation =  Quaternion.Euler(new Vector3(transform.eulerAngles.x + Input.GetAxis("Mouse Y") * Time.deltaTime * rotateSpeed, transform.eulerAngles.y + Input.GetAxis("Mouse X") * Time.deltaTime * -rotateSpeed, 0));
+
+            
         }
 
         if (Input.GetMouseButton(1) || Input.GetMouseButton(2) && !IsPointerOverUIObject())
@@ -48,7 +52,6 @@ public class CameraController : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             isDragging = false;
-            Debug.Log("dragging was just released");
         }
     }
 
