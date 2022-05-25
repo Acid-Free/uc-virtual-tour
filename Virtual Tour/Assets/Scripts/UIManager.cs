@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -15,6 +17,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] Button audioButton;
     [SerializeField] Sprite nonMuteSprite;
     [SerializeField] Sprite muteSprite;
+
+    [SerializeField] TextMeshProUGUI locationNameText;
+    [SerializeField] TextMeshProUGUI locationDescriptionText;
 
     void Awake()
     {
@@ -64,5 +69,17 @@ public class UIManager : MonoBehaviour
         // reverses the mute state
         AudioManager.Instance.ToggleMute();
         setAudioButtonSprite();
+    }
+
+    public void ToggleDescriptionPanel()
+    {
+        bool currentState = descriptionPanel.activeSelf;
+        descriptionPanel.SetActive(!currentState);
+    }
+
+    public void InitializeDescriptionData(String locationName, String locationDescription)
+    {
+        locationNameText.SetText(locationName);
+        locationDescriptionText.SetText(locationDescription);
     }
 }

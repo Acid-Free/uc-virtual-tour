@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// TODO: Ponder if this should be merged with UIManager
 public class SlideshowManager : MonoBehaviour
 {
     [SerializeField] Image slideshowImage;
@@ -24,6 +25,7 @@ public class SlideshowManager : MonoBehaviour
         // gets the slideshow images from locationSphereData
         slideshowImages = currentLocationSphere.GetComponent<LocationSphereData>().slideshowImages;
 
+        // the button only shows up when there is at least one image located
         if (slideshowImages.Length > 0)
         {
             slideshowButton.gameObject.SetActive(true);

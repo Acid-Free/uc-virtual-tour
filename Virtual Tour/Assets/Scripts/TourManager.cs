@@ -40,7 +40,7 @@ public class TourManager : MonoBehaviour
                 }
                 if (hit.transform.gameObject.tag == "Description")
                 {
-                    throw new NotImplementedException();
+                    UIManager.Instance.ToggleDescriptionPanel();
                 }
             }
         }
