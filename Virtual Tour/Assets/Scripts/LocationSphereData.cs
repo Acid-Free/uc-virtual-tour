@@ -8,5 +8,5 @@ public class LocationSphereData : MonoBehaviour
     public Vector3 lookRotation = Vector3.zero;
     public float fieldOfView = 90.0f;
     public Sprite[] slideshowImages;
-    
+    public AudioClip audioNarration;
 }

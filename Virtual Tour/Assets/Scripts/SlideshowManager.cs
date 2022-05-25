@@ -12,7 +12,6 @@ public class SlideshowManager : MonoBehaviour
     int currentImageIndex = 0;
     float slideshowFadeDuration = 0.8f;
 
-    // TODO: figure out if I can merge awake and start
     void Awake()
     {
         TourManager.onLocationSphereChanged += UpdateSlideshowSystem;
