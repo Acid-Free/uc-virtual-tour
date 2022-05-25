@@ -58,4 +58,6 @@ public class TourManager : MonoBehaviour
             locationSphere.SetActive(false);
         }
     }
+
+    // TODO: functions for showing appropriate images in the slideshow panel
 }
