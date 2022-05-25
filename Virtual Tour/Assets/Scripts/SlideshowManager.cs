@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SlideshowController : MonoBehaviour
+public class SlideshowManager : MonoBehaviour
 {
     [SerializeField] Image slideshowImage;
     [SerializeField] Button slideshowButton;
