@@ -111,7 +111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7511449383470245706}
   m_Layer: 0
-  m_Name: DynamicMoveButton 1
+  m_Name: DynamicMoveButtonUC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

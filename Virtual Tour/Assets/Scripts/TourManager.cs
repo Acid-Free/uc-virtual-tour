@@ -27,16 +27,20 @@ public class TourManager : MonoBehaviour
  
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if(Physics.Raycast(ray, out hit, 100.0f))
+            if (Physics.Raycast(ray, out hit, 100.0f))
             {
-                if(hit.transform.gameObject.tag == "Move")
+                if (hit.transform.gameObject.tag == "Move")
                 {
                     LoadSite(hit.transform.gameObject.GetComponent<MoveLocation>().GetLocationIndex());
+                }
+                if (hit.transform.gameObject.tag == "Description")
+                {
+                    throw new NotImplementedException();
                 }
             }
         }
