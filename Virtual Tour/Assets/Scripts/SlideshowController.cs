@@ -5,16 +5,35 @@ using UnityEngine.UI;
 
 public class SlideshowController : MonoBehaviour
 {
-    public Image slideshowImage;
-    public Sprite[] slideshowImages;
+    [SerializeField] Image slideshowImage;
+    [SerializeField] Button slideshowButton;
+    [SerializeField] GameObject slideshowPanel;
+
+    Sprite[] slideshowImages;
     int currentImageIndex = 0;
+    float slideshowFadeDuration = 0.8f;
 
-    float fadeDuration = 1f;
-
-    void Start()
+    // TODO: figure out if I can merge awake and start
+    void Awake()
     {
-        // slideshowImage.canvasRenderer.SetAlpha(0f);
-        slideshowImage.sprite = slideshowImages[currentImageIndex];
+        TourManager.onLocationSphereChanged += UpdateSlideshowSystem;
+    }
+
+    void UpdateSlideshowSystem(GameObject currentLocationSphere)
+    {
+        // gets the slideshow images from locationSphereData
+        slideshowImages = currentLocationSphere.GetComponent<LocationSphereData>().slideshowImages;
+
+        if (slideshowImages.Length > 0)
+        {
+            slideshowButton.gameObject.SetActive(true);
+
+            slideshowImage.sprite = slideshowImages[currentImageIndex];
+        }        
+        else
+        {
+            slideshowButton.gameObject.SetActive(false);
+        }
     }
 
     public void SelectNextImage()
@@ -39,10 +58,21 @@ public class SlideshowController : MonoBehaviour
             UpdateSlideshowImage();
     }
 
+    public void ShowSlideshowPanel()
+    {
+        slideshowPanel.SetActive(true);
+    }
+
+    public void HideSlideshowPanel()
+    {
+        slideshowPanel.SetActive(false);
+    }
+
+    // transitions to the next selected slideshow image
     void UpdateSlideshowImage()
     {
         slideshowImage.canvasRenderer.SetAlpha(0f);
-        slideshowImage.CrossFadeAlpha(1, fadeDuration, false);
+        slideshowImage.CrossFadeAlpha(1, slideshowFadeDuration, false);
         slideshowImage.sprite = slideshowImages[currentImageIndex];
     }
 }

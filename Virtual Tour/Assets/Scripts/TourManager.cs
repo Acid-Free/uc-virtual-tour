@@ -1,11 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: null safety!
 public class TourManager : MonoBehaviour
 {
     public static TourManager Instance {get; private set;}
     public GameObject[] locationSpheres;
+
+    public static event Action<GameObject> onLocationSphereChanged;
 
     void Awake()
     {
@@ -42,13 +46,17 @@ public class TourManager : MonoBehaviour
  
     public void LoadSite(int locationIndex)
     {
-        Vector3 defaultLookRotation = locationSpheres[locationIndex].GetComponent<LocationSphere>().lookRotation;
-        float defaultFieldOfView = locationSpheres[locationIndex].GetComponent<LocationSphere>().fieldOfView;
+        Vector3 defaultLookRotation = locationSpheres[locationIndex].GetComponent<LocationSphereData>().lookRotation;
+        float defaultFieldOfView = locationSpheres[locationIndex].GetComponent<LocationSphereData>().fieldOfView;
 
         HideAllSites();
+    
         // show selected location
         locationSpheres[locationIndex].SetActive(true);
         Camera.main.GetComponent<CameraController>().ResetCamera(defaultLookRotation, defaultFieldOfView);
+
+        // TODO: figure out if I really need ?.Invoke here
+        onLocationSphereChanged?.Invoke(locationSpheres[locationIndex]);
     }
 
     void HideAllSites()
@@ -58,6 +66,4 @@ public class TourManager : MonoBehaviour
             locationSphere.SetActive(false);
         }
     }
-
-    // TODO: functions for showing appropriate images in the slideshow panel
 }
