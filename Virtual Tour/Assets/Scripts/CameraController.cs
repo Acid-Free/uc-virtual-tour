@@ -39,7 +39,7 @@ public class CameraController : MonoBehaviour
             transform.eulerAngles =  new Vector3(transform.eulerAngles.x + Input.GetAxis("Mouse Y") * Time.deltaTime * rotateSpeed, transform.eulerAngles.y + Input.GetAxis("Mouse X") * Time.deltaTime * -rotateSpeed, 0);
         }
 
-        if (Input.GetMouseButton(1) || Input.GetMouseButton(2) && !IsPointerOverUIObject())
+        if ((Input.GetMouseButton(1) || Input.GetMouseButton(2)) && !IsPointerOverUIObject())
         {
             // move camera forward/backward
             fieldOfView = Mathf.Clamp(fieldOfView + Input.GetAxis("Mouse Y") * Time.deltaTime * zoomSpeed, minFieldOfView, maxFieldOfView);
