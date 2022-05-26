@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7266248306275253493}
   - component: {fileID: 2117209689468033500}
   - component: {fileID: 2661753587942586317}
+  - component: {fileID: -6730904355750442307}
   m_Layer: 0
   m_Name: DescriptionButton
   m_TagString: Description
@@ -99,6 +100,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6730904355750442307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6796588323063930746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298b91c00742066499801d7e6b6a2153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateOrigin: 0
 --- !u!1001 &5746790835879323323
 PrefabInstance:
   m_ObjectHideFlags: 0
