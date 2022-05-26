@@ -16,12 +16,7 @@ public class TourManager : MonoBehaviour
     GameObject previousLocationSphere;
 
     [SerializeField] GameObject transitionSphere;
-    [SerializeField] float transitionDuration = 1f;
-
-    [SerializeField] float initialPanSpeed;
-    [SerializeField] float initialPanMaxSpeed;
-    [SerializeField] float initialPanAcceleration;
-    bool isCurrentSphereInteracted;
+    [SerializeField] float transitionDuration = 1f;  
 
     void Awake()
     {
@@ -73,9 +68,6 @@ public class TourManager : MonoBehaviour
         currentLocationSphere.SetActive(true);
         // call event 
         onLocationSphereChanged?.Invoke(currentLocationSphere);
-
-        // reset the flag
-        isCurrentSphereInteracted = false;
     }
  
     public void LoadSite(int locationIndex)
@@ -87,9 +79,6 @@ public class TourManager : MonoBehaviour
         currentLocationSphere = locationSpheres[locationIndex];
 
         StartCoroutine(StartTransition());
-
-        // reset the flag
-        isCurrentSphereInteracted = false;
     }
 
     IEnumerator StartTransition()

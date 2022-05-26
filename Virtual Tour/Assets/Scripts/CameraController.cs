@@ -15,20 +15,53 @@ public class CameraController : MonoBehaviour
     bool isDragging;
     Quaternion targetRotation = Quaternion.identity;
 
+    [SerializeField] float initialPanSpeed;
+    [SerializeField] float initialPanMaxSpeed;
+    [SerializeField] float initialPanAcceleration;
+    float initialPanCurrentSpeed;
+    int initialRotationDir;
+
+    bool isCurrentSphereInteracted; 
+
     void Awake()
     {
+        // TODO: Refactor this, design conflicts existing
+        TourManager.onLocationSphereChanged += ResetInteractedFlag;
+
         ResetCamera();
     }
 
     void Update()
     {
         HandleMouseInput();
+        if (!isCurrentSphereInteracted)
+        {
+            InitialPan();
+        }
+    }
+
+    void InitialPan()
+    {
+        if (initialPanSpeed < initialPanMaxSpeed)
+        {
+            initialPanSpeed += initialPanAcceleration * Time.deltaTime;
+        }
+
+        transform.Rotate(Vector3.up, initialPanSpeed * Time.deltaTime * initialRotationDir, Space.World);
+    }
+
+    void ResetInteractedFlag(GameObject currentLocationSphere)
+    {
+        initialPanSpeed = initialPanCurrentSpeed;
+        isCurrentSphereInteracted = false;
+        initialRotationDir = Random.Range(0, 2) == 0 ? -1 : 1;
     }
 
     void HandleMouseInput()
     {
         if (Input.GetMouseButtonDown(0) && !IsPointerOverUIObject())
         {
+            isCurrentSphereInteracted = true;
             isDragging = true;
         }
 
@@ -41,6 +74,8 @@ public class CameraController : MonoBehaviour
 
         if ((Input.GetMouseButton(1) || Input.GetMouseButton(2)) && !IsPointerOverUIObject())
         {
+            isCurrentSphereInteracted = true;
+
             // move camera forward/backward
             fieldOfView = Mathf.Clamp(fieldOfView + Input.GetAxis("Mouse Y") * Time.deltaTime * zoomSpeed, minFieldOfView, maxFieldOfView);
             UpdateCameraFOV();
