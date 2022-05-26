@@ -733,6 +733,8 @@ MonoBehaviour:
   - {fileID: 1907500121}
   - {fileID: 1480544729}
   - {fileID: 678733858}
+  initialLocationSphereIndex: 1
+  transitionDuration: 2
 --- !u!114 &484510329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1814,7 +1816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 105910965507552664, guid: 9a8f3a172bca3e643a46ba53201fe5c8, type: 3}
       propertyPath: slideshowImages.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 105910965507552664, guid: 9a8f3a172bca3e643a46ba53201fe5c8, type: 3}
       propertyPath: slideshowImages.Array.data[0]
@@ -1824,6 +1826,14 @@ PrefabInstance:
       propertyPath: slideshowImages.Array.data[1]
       value: 
       objectReference: {fileID: 21300000, guid: 5f9afe90941265e488bb8e81a63f9939, type: 3}
+    - target: {fileID: 105910965507552664, guid: 9a8f3a172bca3e643a46ba53201fe5c8, type: 3}
+      propertyPath: slideshowImages.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: f95a92756c1b21947ad7b65437ecef38, type: 3}
+    - target: {fileID: 105910965507552664, guid: 9a8f3a172bca3e643a46ba53201fe5c8, type: 3}
+      propertyPath: slideshowImages.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 1f37dd95bfda7b84d9954cd51676b687, type: 3}
     - target: {fileID: 732299169326051142, guid: 9a8f3a172bca3e643a46ba53201fe5c8, type: 3}
       propertyPath: m_Name
       value: MStreetParking
@@ -3759,7 +3769,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1377410590
 MonoBehaviour:
   m_ObjectHideFlags: 0
