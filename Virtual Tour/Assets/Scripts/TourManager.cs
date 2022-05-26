@@ -74,12 +74,11 @@ public class TourManager : MonoBehaviour
     {
         // before loading the new site, keep reference of the previous one
         previousLocationSphere = currentLocationSphere;
-        previousLocationSphere.SetActive(false);
+        
 
         // assign the current location sphere
         currentLocationSphere = locationSpheres[locationIndex];
 
-        LoadLocationSphereData();
         StartCoroutine(StartTransition());
     }
 
@@ -91,23 +90,38 @@ public class TourManager : MonoBehaviour
         Material material = transitionSphere.GetComponent<Renderer>().material;
         Renderer renderer = transitionSphere.GetComponent<Renderer>();
 
-        // animation 1: black to white
+        // fade out
         Color color = material.color;
         float frameTime = Time.deltaTime;
-        for (float i = 0; i < transitionDuration; i += frameTime)
+        float duration = transitionDuration / 2;
+        for (float i = 0; i < duration; i += frameTime)
         {
             frameTime = Time.deltaTime;
 
-            color.r = color.g = color.b = i / transitionDuration;
+            color.a = i / duration;
             material.color = color;
-            Debug.Log(color.a);
+
+            yield return new WaitForSeconds(frameTime);
+        }
+
+        // hide previous location
+        previousLocationSphere.SetActive(false);
+        LoadLocationSphereData();
+        // show selected location
+        currentLocationSphere.SetActive(true);
+
+        // fade in
+        for (float i = duration; i > 0; i -= frameTime)
+        {
+            frameTime = Time.deltaTime;
+
+            color.a = i / duration;
+            material.color = color;
 
             yield return new WaitForSeconds(frameTime);
         }
         transitionSphere.SetActive(false);
 
-        // show selected location
-        currentLocationSphere.SetActive(true);
         // call event 
         onLocationSphereChanged?.Invoke(currentLocationSphere);
     }

@@ -735,7 +735,7 @@ MonoBehaviour:
   - {fileID: 678733858}
   initialLocationSphereIndex: 0
   transitionSphere: {fileID: 1491281131}
-  transitionDuration: 1.5
+  transitionDuration: 0.5
 --- !u!114 &484510329
 MonoBehaviour:
   m_ObjectHideFlags: 0
