@@ -15,6 +15,7 @@ public class TourManager : MonoBehaviour
     GameObject currentLocationSphere;
     GameObject previousLocationSphere;
 
+    [SerializeField] GameObject transitionSphere;
     [SerializeField] float transitionDuration = 1f;
 
     void Awake()
@@ -79,6 +80,31 @@ public class TourManager : MonoBehaviour
         currentLocationSphere = locationSpheres[locationIndex];
 
         LoadLocationSphereData();
+        StartCoroutine(StartTransition());
+    }
+
+    IEnumerator StartTransition()
+    {
+
+        // animating transition sphere
+        transitionSphere.SetActive(true);
+        Material material = transitionSphere.GetComponent<Renderer>().material;
+        Renderer renderer = transitionSphere.GetComponent<Renderer>();
+
+        // animation 1: black to white
+        Color color = material.color;
+        float frameTime = Time.deltaTime;
+        for (float i = 0; i < transitionDuration; i += frameTime)
+        {
+            frameTime = Time.deltaTime;
+
+            color.r = color.g = color.b = i / transitionDuration;
+            material.color = color;
+            Debug.Log(color.a);
+
+            yield return new WaitForSeconds(frameTime);
+        }
+        transitionSphere.SetActive(false);
 
         // show selected location
         currentLocationSphere.SetActive(true);
