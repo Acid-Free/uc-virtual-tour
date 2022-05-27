@@ -25,11 +25,12 @@ public class CameraController : MonoBehaviour
     int initialRotationDir;
 
     bool isCurrentSphereInteracted; 
+    bool initialPanStarted;
 
     void Awake()
     {
         // TODO: Refactor this, design conflicts existing
-        TourManager.onLocationSphereChanged += ResetInteractedFlag;
+        TourManager.onLocationSphereChanged += ResetFlags;
 
         ResetCamera();
     }
@@ -37,7 +38,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         HandleMouseInput();
-        if (!isCurrentSphereInteracted)
+        if (!isCurrentSphereInteracted && !initialPanStarted)
         {
             StartCoroutine(StartInitialPan());
         }
@@ -63,24 +64,38 @@ public class CameraController : MonoBehaviour
 
     IEnumerator StartInitialPan()
     {
+        initialPanStarted = true;
+        Debug.Log("started");
         yield return new WaitForSeconds(initialPanDelay);
-        InitialPan();
+        StartCoroutine(InitialPan());
     }
 
-    void InitialPan()
+    // TODO: refactor, inefficient
+    IEnumerator InitialPan()
     {
-        if (initialPanSpeed < initialPanMaxSpeed)
+        while(true)
         {
-            initialPanSpeed += initialPanAcceleration * Time.deltaTime;
-        }
+            if (isCurrentSphereInteracted)
+            {
+                yield break;
+            }
 
-        transform.Rotate(Vector3.up, initialPanSpeed * Time.deltaTime * initialRotationDir, Space.World);
+            if (initialPanSpeed < initialPanMaxSpeed)
+            {
+                initialPanSpeed += initialPanAcceleration * Time.deltaTime;
+            }
+
+            transform.Rotate(Vector3.up, initialPanSpeed * Time.deltaTime * initialRotationDir, Space.World);
+
+            yield return null;
+        }
     }
 
-    void ResetInteractedFlag(GameObject currentLocationSphere)
+    void ResetFlags(GameObject currentLocationSphere)
     {
         initialPanSpeed = initialPanCurrentSpeed;
         isCurrentSphereInteracted = false;
+        initialPanStarted = false;
         initialRotationDir = Random.Range(0, 2) == 0 ? -1 : 1;
     }
 
@@ -113,7 +128,6 @@ public class CameraController : MonoBehaviour
         }
         else if (scrollInput != 0)
         {
-            Debug.Log(scrollInput);
             isCurrentSphereInteracted = true;
             fieldOfView = Mathf.Clamp(fieldOfView + scrollInput * Time.deltaTime * scrollZoomSpeed, minFieldOfView, maxFieldOfView);
             UpdateCameraFOV();
