@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -15,6 +16,7 @@ public class CameraController : MonoBehaviour
     bool isDragging;
     Quaternion targetRotation = Quaternion.identity;
 
+    [SerializeField] float initialPanDelay;
     [SerializeField] float initialPanSpeed;
     [SerializeField] float initialPanMaxSpeed;
     [SerializeField] float initialPanAcceleration;
@@ -36,8 +38,14 @@ public class CameraController : MonoBehaviour
         HandleMouseInput();
         if (!isCurrentSphereInteracted)
         {
-            InitialPan();
+            StartCoroutine(StartInitialPan());
         }
+    }
+
+    IEnumerator StartInitialPan()
+    {
+        yield return new WaitForSeconds(initialPanDelay);
+        InitialPan();
     }
 
     void InitialPan()
