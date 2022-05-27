@@ -12,9 +12,9 @@ public class CameraController : MonoBehaviour
     // TODO: Deprecate
     [SerializeField] float defaulFieldOfView = 90.0f;
     float fieldOfView;
+    float maxVerticalAngle = 90f;
 
     bool isDragging;
-    Quaternion targetRotation = Quaternion.identity;
 
     [SerializeField] float initialPanDelay;
     [SerializeField] float initialPanSpeed;
@@ -39,6 +39,24 @@ public class CameraController : MonoBehaviour
         if (!isCurrentSphereInteracted)
         {
             StartCoroutine(StartInitialPan());
+        }
+    }
+
+    // TODO: find a more elegant solution, current implementation is too expensive
+    float ClampVerticalAngle(float angle)
+    {
+        float upperLimit = 360f - maxVerticalAngle;
+        if (angle > 180 && angle < upperLimit)
+        {
+            return upperLimit;
+        }
+        else if (angle < 180 && angle > maxVerticalAngle)
+        {
+            return maxVerticalAngle;
+        }
+        else
+        {
+            return angle;
         }
     }
 
@@ -77,7 +95,7 @@ public class CameraController : MonoBehaviour
         {
             // rotate camera based on mouse actions
             // TODO: refactor
-            transform.eulerAngles =  new Vector3(transform.eulerAngles.x + Input.GetAxis("Mouse Y") * Time.deltaTime * rotateSpeed, transform.eulerAngles.y + Input.GetAxis("Mouse X") * Time.deltaTime * -rotateSpeed, 0);
+            transform.localEulerAngles =  new Vector3(ClampVerticalAngle(transform.localEulerAngles.x + Input.GetAxis("Mouse Y") * Time.deltaTime * rotateSpeed), transform.localEulerAngles.y + Input.GetAxis("Mouse X") * Time.deltaTime * -rotateSpeed, 0);
         }
 
         if ((Input.GetMouseButton(1) || Input.GetMouseButton(2)) && !IsPointerOverUIObject())
