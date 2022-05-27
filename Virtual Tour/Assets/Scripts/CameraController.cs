@@ -16,6 +16,8 @@ public class CameraController : MonoBehaviour
     float maxVerticalAngle = 90f;
 
     bool isDragging;
+    Vector3 dragVelocity;
+    Vector3 lastMousePosition;
 
     [SerializeField] float initialPanDelay;
     [SerializeField] float initialPanSpeed;
@@ -65,7 +67,6 @@ public class CameraController : MonoBehaviour
     IEnumerator StartInitialPan()
     {
         initialPanStarted = true;
-        Debug.Log("started");
         yield return new WaitForSeconds(initialPanDelay);
         StartCoroutine(InitialPan());
     }
@@ -103,14 +104,19 @@ public class CameraController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !IsPointerOverUIObject())
         {
+            lastMousePosition = Input.mousePosition;
+
             isCurrentSphereInteracted = true;
             isDragging = true;
         }
         else if (Input.GetMouseButton(0) && isDragging)
         {
+            dragVelocity = Input.mousePosition - lastMousePosition;
+            lastMousePosition = Input.mousePosition;    
+
             // rotate camera based on mouse actions
             // TODO: refactor
-            transform.localEulerAngles =  new Vector3(ClampVerticalAngle(transform.localEulerAngles.x + Input.GetAxis("Mouse Y") * Time.deltaTime * rotateSpeed), transform.localEulerAngles.y + Input.GetAxis("Mouse X") * Time.deltaTime * -rotateSpeed, 0);
+            transform.localEulerAngles =  new Vector3(ClampVerticalAngle(transform.localEulerAngles.x + dragVelocity.y * Time.deltaTime * rotateSpeed), transform.localEulerAngles.y + dragVelocity.x * Time.deltaTime * -rotateSpeed, 0);
         }
         else if (Input.GetMouseButtonUp(0))
         {
