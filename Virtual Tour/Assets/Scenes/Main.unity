@@ -2690,12 +2690,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateSpeed: 600
   zoomSpeed: 200
+  scrollZoomSpeed: 500
   minFieldOfView: 40
   maxFieldOfView: 110
   defaulFieldOfView: 90
   initialPanDelay: 1
   initialPanSpeed: 0.5
-  initialPanMaxSpeed: 7
+  initialPanMaxSpeed: 5
   initialPanAcceleration: 0.7
 --- !u!1 &1030930239
 GameObject:

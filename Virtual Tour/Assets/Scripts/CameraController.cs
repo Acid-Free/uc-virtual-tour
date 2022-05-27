@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] float rotateSpeed = 300.0f;
     [SerializeField] float zoomSpeed = 600.0f;
+    [SerializeField] float scrollZoomSpeed;
     [SerializeField] float minFieldOfView = 40.0f;
     [SerializeField] float maxFieldOfView = 110.0f;
     // TODO: Deprecate
@@ -90,14 +91,18 @@ public class CameraController : MonoBehaviour
             isCurrentSphereInteracted = true;
             isDragging = true;
         }
-
-        if (Input.GetMouseButton(0) && isDragging)
+        else if (Input.GetMouseButton(0) && isDragging)
         {
             // rotate camera based on mouse actions
             // TODO: refactor
             transform.localEulerAngles =  new Vector3(ClampVerticalAngle(transform.localEulerAngles.x + Input.GetAxis("Mouse Y") * Time.deltaTime * rotateSpeed), transform.localEulerAngles.y + Input.GetAxis("Mouse X") * Time.deltaTime * -rotateSpeed, 0);
         }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            isDragging = false;
+        }
 
+        float scrollInput = Input.mouseScrollDelta.y;
         if ((Input.GetMouseButton(1) || Input.GetMouseButton(2)) && !IsPointerOverUIObject())
         {
             isCurrentSphereInteracted = true;
@@ -106,10 +111,12 @@ public class CameraController : MonoBehaviour
             fieldOfView = Mathf.Clamp(fieldOfView + Input.GetAxis("Mouse Y") * Time.deltaTime * zoomSpeed, minFieldOfView, maxFieldOfView);
             UpdateCameraFOV();
         }
-
-        if (Input.GetMouseButtonUp(0))
+        else if (scrollInput != 0)
         {
-            isDragging = false;
+            Debug.Log(scrollInput);
+            isCurrentSphereInteracted = true;
+            fieldOfView = Mathf.Clamp(fieldOfView + scrollInput * Time.deltaTime * scrollZoomSpeed, minFieldOfView, maxFieldOfView);
+            UpdateCameraFOV();
         }
     }
 
