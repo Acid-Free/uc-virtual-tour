@@ -108,7 +108,9 @@ public class CameraController : MonoBehaviour
             isCurrentSphereInteracted = true;
             isDragging = true;
         }
-        else if (Input.GetMouseButton(0) && isDragging)
+
+        
+        if (Input.GetMouseButton(0) && isDragging)
         {
             dragVelocity = Input.mousePosition - lastMousePosition;
             lastMousePosition = Input.mousePosition;    
@@ -138,6 +140,8 @@ public class CameraController : MonoBehaviour
             fieldOfView = Mathf.Clamp(fieldOfView + scrollInput * Time.deltaTime * scrollZoomSpeed, minFieldOfView, maxFieldOfView);
             UpdateCameraFOV();
         }
+        
+        Debug.Log(transform.localEulerAngles);
 
         // Update camera rotation
         if (isCurrentSphereInteracted)
