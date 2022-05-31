@@ -21,7 +21,6 @@ public class CameraController : MonoBehaviour
     Vector3 lastPanInput;
     Vector3 currentPanInput;
     Vector3 panVelocity;
-    float a = 10f;
 
     [SerializeField] float initialPanDelay;
     [SerializeField] float initialPanSpeed;
@@ -141,8 +140,6 @@ public class CameraController : MonoBehaviour
             UpdateCameraFOV();
         }
         
-        Debug.Log(transform.localEulerAngles);
-
         // Update camera rotation
         if (isCurrentSphereInteracted)
         {
